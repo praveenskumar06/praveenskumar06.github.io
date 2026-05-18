@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme 2: Emerald Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #059669; --primary-dark: #047857; --primary-light: #d1fae5;
+            --text: #1e293b; --text-sec: #64748b; --bg: #ffffff; --bg-alt: #f0fdf4;
+            --border: #e2e8f0; --card: #ffffff; --radius: 8px; --radius-lg: 12px;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        a { color: var(--primary); text-decoration: none; }
+
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+        .logo .dot { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 32px; }
+        .nav-links a { color: var(--text-sec); font-size: 0.9rem; font-weight: 500; }
+
+        .hero { padding: 140px 0 80px; min-height: 90vh; display: flex; align-items: center; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%); }
+        .hero-content { max-width: 650px; }
+        .hero-greeting { font-size: 1rem; color: var(--primary); font-weight: 500; margin-bottom: 8px; }
+        .hero-name { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
+        .hero-title { font-size: 1.5rem; font-weight: 500; color: var(--text-sec); margin-bottom: 20px; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-sec); line-height: 1.8; margin-bottom: 32px; }
+        .hero-cta { display: flex; gap: 16px; margin-bottom: 40px; }
+        .hero-location { display: flex; align-items: center; gap: 8px; color: var(--text-sec); font-size: 0.9rem; }
+        .btn { display: inline-flex; align-items: center; padding: 12px 28px; border-radius: var(--radius); font-size: 0.95rem; font-weight: 500; border: none; cursor: pointer; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 2px solid var(--border); color: var(--text); background: transparent; }
+
+        .section { padding: 80px 0; }
+        .section-alt { background: var(--bg-alt); }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 48px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--primary); border-radius: 2px; }
+
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .about-text p { margin-bottom: 16px; color: var(--text-sec); }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; text-align: center; }
+        .stat-number { display: block; font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .stat-label { font-size: 0.85rem; color: var(--text-sec); }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .skill-category { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+        .skill-category h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-tag { background: var(--primary-light); color: var(--primary-dark); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+
+        .timeline { position: relative; padding-left: 32px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-marker { position: absolute; left: -32px; top: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--primary); }
+        .timeline-content { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+        .timeline-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+        .timeline-header h3 { font-size: 1.1rem; font-weight: 600; }
+        .timeline-company { color: var(--primary); font-weight: 500; font-size: 0.95rem; }
+        .timeline-date { font-size: 0.85rem; color: var(--text-sec); display: block; margin-bottom: 12px; }
+        .timeline-details { list-style: none; }
+        .timeline-details li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-sec); }
+        .timeline-details li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .project-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; }
+        .project-icon { font-size: 2rem; margin-bottom: 16px; }
+        .project-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .project-card p { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 16px; flex-grow: 1; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .project-tech span { background: var(--bg-alt); border: 1px solid var(--border); padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; color: var(--text-sec); font-weight: 500; }
+        .project-link { font-size: 0.9rem; font-weight: 500; }
+
+        .contact-subtitle { color: var(--text-sec); margin-bottom: 40px; max-width: 600px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .contact-info { display: flex; flex-direction: column; gap: 20px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; color: var(--text-sec); }
+        .contact-item svg { color: var(--primary); flex-shrink: 0; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.95rem; background: var(--bg); color: var(--text); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .btn-full { width: 100%; justify-content: center; }
+        .footer { padding: 32px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-sec); font-size: 0.9rem; }
+
+        .theme-label { position: fixed; top: 70px; right: 20px; background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; z-index: 1001; }
+
+        @media (max-width: 768px) {
+            .hero-name { font-size: 2.5rem; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <span class="theme-label">🎨 Theme 2: Emerald Modern</span>
+    <nav class="navbar"><div class="container nav-container"><a href="#" class="logo">AJ<span class="dot">.</span></a><ul class="nav-links"><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div></nav>
+
+    <header class="hero"><div class="container hero-content">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">Alex Johnson</h1>
+        <h2 class="hero-title">Senior Software Engineer</h2>
+        <p class="hero-desc">Passionate about building scalable, high-performance applications. 8+ years of experience delivering enterprise solutions across fintech, healthcare, and cloud platforms.</p>
+        <div class="hero-cta"><a href="#projects" class="btn btn-primary">View My Work</a><a href="#contact" class="btn btn-outline">Get in Touch</a></div>
+        <div class="hero-location"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Toronto, Ontario, Canada</span></div>
+    </div></header>
+
+    <section id="about" class="section"><div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text"><p>I'm a Senior Software Engineer with over 8 years of experience designing and building robust, scalable systems. I specialize in full-stack development with a strong focus on cloud-native architectures.</p><p>Currently based in Toronto, I've led technical initiatives improving system performance by 40% and reducing deployment times by 60%.</p></div>
+            <div class="about-stats">
+                <div class="stat-card"><span class="stat-number">8+</span><span class="stat-label">Years Experience</span></div>
+                <div class="stat-card"><span class="stat-number">50+</span><span class="stat-label">Projects Delivered</span></div>
+                <div class="stat-card"><span class="stat-number">15+</span><span class="stat-label">Team Members Mentored</span></div>
+                <div class="stat-card"><span class="stat-number">99.9%</span><span class="stat-label">Uptime Achieved</span></div>
+            </div>
+        </div>
+    </div></section>
+
+    <section id="skills" class="section section-alt"><div class="container">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category"><h3>Languages</h3><div class="skill-tags"><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Go</span><span class="skill-tag">SQL</span></div></div>
+            <div class="skill-category"><h3>Frontend</h3><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">Angular</span><span class="skill-tag">Next.js</span><span class="skill-tag">Tailwind CSS</span></div></div>
+            <div class="skill-category"><h3>Backend</h3><div class="skill-tags"><span class="skill-tag">Spring Boot</span><span class="skill-tag">Node.js</span><span class="skill-tag">Django</span><span class="skill-tag">GraphQL</span><span class="skill-tag">Microservices</span></div></div>
+            <div class="skill-category"><h3>Cloud & DevOps</h3><div class="skill-tags"><span class="skill-tag">AWS</span><span class="skill-tag">GCP</span><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Terraform</span></div></div>
+            <div class="skill-category"><h3>Databases</h3><div class="skill-tags"><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">Redis</span><span class="skill-tag">Elasticsearch</span></div></div>
+            <div class="skill-category"><h3>Practices</h3><div class="skill-tags"><span class="skill-tag">Agile/Scrum</span><span class="skill-tag">TDD</span><span class="skill-tag">System Design</span><span class="skill-tag">Code Review</span></div></div>
+        </div>
+    </div></section>
+
+    <section id="experience" class="section"><div class="container">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Senior Software Engineer</h3><span class="timeline-company">Maple Financial Technologies</span></div><span class="timeline-date">Jan 2022 – Present · Toronto, ON</span><ul class="timeline-details"><li>Lead architect for real-time payment processing platform handling 2M+ daily transactions</li><li>Designed event-driven microservices reducing latency by 35%</li><li>Mentored team of 6 engineers</li></ul></div></div>
+            <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Software Engineer II</h3><span class="timeline-company">Northern Health Systems</span></div><span class="timeline-date">Mar 2019 – Dec 2021 · Vancouver, BC</span><ul class="timeline-details"><li>Built HIPAA-compliant telehealth platform serving 500K+ patients</li><li>Implemented CI/CD pipelines reducing deployment time from 4 hours to 15 minutes</li></ul></div></div>
+            <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content"><div class="timeline-header"><h3>Software Engineer</h3><span class="timeline-company">CloudStack Solutions</span></div><span class="timeline-date">Jun 2017 – Feb 2019 · Montreal, QC</span><ul class="timeline-details"><li>Developed RESTful APIs and microservices for SaaS analytics platform</li><li>Achieved 90%+ code coverage with automated testing</li></ul></div></div>
+        </div>
+    </div></section>
+
+    <section id="projects" class="section section-alt"><div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card"><div class="project-icon">💳</div><h3>PayFlow Engine</h3><p>High-throughput payment processing engine. 50K transactions/second with 99.99% uptime.</p><div class="project-tech"><span>Java</span><span>Spring Boot</span><span>Kafka</span></div><a href="#" class="project-link">View Details →</a></div>
+            <div class="project-card"><div class="project-icon">🏥</div><h3>HealthConnect</h3><p>Telehealth platform with video consultations and secure health records for 500K+ users.</p><div class="project-tech"><span>React</span><span>Node.js</span><span>WebRTC</span></div><a href="#" class="project-link">View Details →</a></div>
+            <div class="project-card"><div class="project-icon">📊</div><h3>DataPulse Analytics</h3><p>Real-time analytics dashboard processing 10M+ events daily.</p><div class="project-tech"><span>TypeScript</span><span>Next.js</span><span>AWS</span></div><a href="#" class="project-link">View Details →</a></div>
+        </div>
+    </div></section>
+
+    <section id="contact" class="section"><div class="container">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="contact-subtitle">Open to discussing new opportunities and interesting projects.</p>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><a href="#">alex.johnson@email.com</a></div>
+                <div class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><a href="#">github.com/alexjohnson</a></div>
+                <div class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg><a href="#">linkedin.com/in/alexjohnson</a></div>
+                <div class="contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Toronto, Ontario, Canada</span></div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group"><input type="text" placeholder="Your Name"></div>
+                <div class="form-group"><input type="email" placeholder="Your Email"></div>
+                <div class="form-group"><textarea rows="5" placeholder="Your Message"></textarea></div>
+                <button type="button" class="btn btn-primary btn-full">Send Message</button>
+            </form>
+        </div>
+    </div></section>
+
+    <footer class="footer"><div class="container"><p>&copy; 2026 Alex Johnson. Built with passion in Canada 🍁</p></div></footer>
+</body>
+</html>
